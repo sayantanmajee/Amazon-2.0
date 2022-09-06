@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* injecting custom utility classes to our jsx file */
+@layer components {
+    .link {
+        @apply cursor-pointer hover:underline;
+    }
+    .bold {
+        @apply font-bold
+    }
+}
