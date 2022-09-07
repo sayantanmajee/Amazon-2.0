@@ -5,9 +5,12 @@
 /* injecting custom utility classes to our jsx file */
 @layer components {
     .link {
-        @apply cursor-pointer hover:underline;
+        @apply cursor-pointer transition ease-out duration-75 hover:underline hover:scale-105;
     }
     .bold {
         @apply font-bold
+    }
+    .button {
+        @apply text-sm md:text-base bg-gradient-to-b from-yellow-200 to-yellow-500 border border-yellow-300 h-10 rounded-md focus:outline-none focus:border-none focus:ring-1 focus:ring-yellow-500 active:from-yellow-500 active:to-yellow-500
     }
 }
