@@ -1,7 +1,7 @@
 // import { castImmutable } from 'immer'
 import Image from "next/image";
 import React, { useState } from "react";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 function Product({ id, title, category, description, image, price, rating }) {
   const { rate, count } = rating;
@@ -30,11 +30,20 @@ function Product({ id, title, category, description, image, price, rating }) {
       <div className="my-3 bold">{"₹" + (Math.floor(price*10)+".00")}</div>
       <h4 className="mb-2 bold line-clamp-2">{title}</h4>
       <div className="flex items-center ">
-        {Array(Math.floor(rate))
+      {/* populating filled star according to rating value */}
+        {Array(Math.round(rate))
           .fill()
           .map((_, index) => (
             <AiFillStar key={index} className="h-5 text-yellow-500" />
           ))}
+    {/* populating nonfiled star (5-rate) */}
+          {Array((5-Math.round(rate)))
+          .fill()
+          .map((_, index) => (
+            <AiOutlineStar key={index} className="h-5 text-yellow-500" />
+          ))
+          }
+          
         <p className="pl-2 text-sm">{count}</p>
       </div>
 
