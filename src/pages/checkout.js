@@ -5,7 +5,7 @@ import CheckoutProduct from "../components/CheckoutProduct";
 import { useRouter } from "next/router"
 import Header from "../components/Header";
 import { selectItems, selectTotalAmount, selectCartTotalQuantity } from "../slices/basketSlice";
-import {ToastContainer, toast } from 'react-toastify';
+import {ToastContainer } from 'react-toastify';
 
 
 

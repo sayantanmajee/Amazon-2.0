@@ -38,9 +38,11 @@ function CheckoutProduct({ index, id, title, price, rate, description, category,
     //inline arrow function for removing items from cart
     const removeItemFromCart = () => {
 
-        toast.warn(`${title} Removed from cart`)
+        
         //remove item from redux store
         dispatch(removeFromCart({ id }));   
+
+        toast.warn(`${title} Removed from cart`)
 
     }
 
