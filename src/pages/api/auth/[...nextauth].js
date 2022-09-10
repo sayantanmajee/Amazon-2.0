@@ -10,5 +10,6 @@ export default NextAuth({
     // ...add more providers here
   ],
 
+  //helped me to resolve vercel issue : https://github.com/nextauthjs/next-auth/issues/3245
   secret: process.env.SECRET,
 })

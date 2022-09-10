@@ -6,17 +6,16 @@ import { RiShoppingCartLine, RiMenuFill } from 'react-icons/ri'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useSelector } from 'react-redux';
-import { selectItems } from '../slices/basketSlice';
+import { selectItems, selectCartTotalQuantity } from '../slices/basketSlice';
 
 
 function Header() {
     const { data: session } = useSession()
     const router = useRouter();
-    const items = useSelector(selectItems);
-
+    const cartItems = useSelector(selectCartTotalQuantity);
 
     return (
-        <header>
+        <header className="fixed z-30 w-full">
             {/* top nav */}
             <div className='flex flex-grow items-center bg-amazon_blue p-1 py-2'>
                 <div className="flex flex-grow items-center mt-1 sm:flex-grow-0">
@@ -56,7 +55,7 @@ function Header() {
                         onClick={() => router.push('/checkout')}
                         className="flex relative justify-center items-end link">
                         <span className="flex absolute bottom-6 left-7 rounded-full h-4 sm:h-5 w-4 sm:w-5 h justify-center items-center text-sm sm:text-lg bg-yellow-500 font-extrabold text-black">
-                            {items.length}
+                            {cartItems}
                         </span>
                         <RiShoppingCartLine size={40} className="" />
                         <p className="hidden sm:flex pb-1 bold">Cart</p>

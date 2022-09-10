@@ -4,6 +4,9 @@ import Header from "../components/Header";
 import Banner from "../components/Banner";
 import ProductFeed from "../components/ProductFeed";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Home({ products }) {
   return (
@@ -23,6 +26,7 @@ export default function Home({ products }) {
       </div>
 
 
+      <ToastContainer autoClose={2000} pauseOnHover closeOnClick theme="colored" newestOnTop={true} />
     </div>
   );
 }

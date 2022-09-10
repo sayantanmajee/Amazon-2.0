@@ -1,22 +1,33 @@
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CheckoutProduct from "../components/CheckoutProduct";
+import { useRouter } from "next/router"
 import Header from "../components/Header";
-import { selectItems, selectTotal } from "../slices/basketSlice";
+import { selectItems, selectTotalAmount, selectCartTotalQuantity } from "../slices/basketSlice";
+import {ToastContainer, toast } from 'react-toastify';
+
+
 
 function Checkout() {
 
   const { data: session } = useSession()
   const items = useSelector(selectItems);
-  const total = useSelector(selectTotal);
+  const router = useRouter();
+  const totalAmount = useSelector(selectTotalAmount);
+  const totalItemsCount = useSelector(selectCartTotalQuantity);
+
+
 
   return (
-    <div className="bg-gray-200">
+
+
+    <div className="bg-gray-200 min-h-screen">
       <Header />
 
       <img
         className="w-full"
+        style={{ paddingTop: '6.2rem' }}
         src="https://m.media-amazon.com/images/W/WEBP_402378-T1/images/G/31/prime/Pay/LPA/WelcomePackNew/HO_Welcome_Pack_Desktop_New._CB646447819_.jpg"
         alt="adv-mg"
       />
@@ -48,13 +59,23 @@ function Checkout() {
           {/* left section - items */}
           <div className="flex-grow m-5 shadow-sm">
             <div className="flex flex-col p-5 space-y-10 bg-white">
-              <h1 className="text-3xl border-b-2 pb-4">
+              {items.length === 0 ? (
+                <div className="flex flex-col space-y-24">
+
+                <h1 className="text-center md:text-start text-3xl border-b-2 pb-4">Your Cart is Empty</h1>
+                <button onClick={() => router.push("/")} className="md:m-auto md:max-w-sm button px-24 ">Go Back To Store</button>
+                </div>
+              ) : (
+              <h1 className="text-center md:text-start text-3xl border-b-2 pb-4">Shopping Cart</h1>
+              )}
+              {/* <h1 className="text-3xl border-b-2 pb-4">
                 {items.length === 0 ? "Your Cart is Empty" : "Shopping Cart"}
-              </h1>
+              </h1> */}
 
               {items.map((item, index) => (
                 <CheckoutProduct
                   key={index}
+                  index={index}
                   id={item.id}
                   title={item.title}
                   price={item.price}
@@ -74,9 +95,9 @@ function Checkout() {
             <div className="flex flex-col space-y-5 bg-white p-10 shadow-md">
               {items.length >= 0 && (
                 <>
-                  <h2 className="whitespace-nowrap font-bold justify-start items-center flex">Subtotal ({items.length} items):
+                  <h2 className="whitespace-nowrap font-bold justify-start items-center flex">Subtotal ({totalItemsCount} items):
                     <span className="text-2xl bold">&nbsp;
-                      {"₹" + (Math.floor(total * 10) + ".00")}
+                      {"₹" + (Math.floor(totalAmount * 10) + ".00")}
                     </span>
 
                   </h2>
@@ -91,6 +112,8 @@ function Checkout() {
 
         </main>
       </div>
+
+      <ToastContainer autoClose={2000} pauseOnHover closeOnClick theme="colored" newestOnTop={true} />
     </div>
   );
 }

@@ -5,12 +5,18 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../slices/basketSlice"
 
+import { toast } from 'react-toastify';
+
+
+
+
 function Product({ id, title, category, description, image, price, rating }) {
   const { rate, count } = rating;
   const [hasPrime, setHasPrime] = useState(null);
   const [randomNum, setRandomNum] = useState(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
+  // const notify = (item) => toast(`${item} Item added to Cart.`);
 
   const min = 100;
   const max = 1000;
@@ -22,13 +28,14 @@ function Product({ id, title, category, description, image, price, rating }) {
 
   }, []);
 
-  const addItemToCart = () => {
+  const handleAddItemToCart = () => {
     const product = {
       id, title, category, description, image, price, rating, hasPrime
     }
 
     //sending the product as an action to the REDUX store ..basket slice
     dispatch(addToCart(product));
+    toast.success(`${title} added to the cart`)
 
   }
 
@@ -43,7 +50,7 @@ function Product({ id, title, category, description, image, price, rating }) {
   //   });
 
   return (
-    <div className="flex flex-col sm: relative m-5 bg-white z-30 p-10 rounded-md">
+    <div className="flex flex-col sm: relative m-5 bg-white z-20 p-10 rounded-md">
       <p className="absolute top-2 right-3 text-sm italic">{category}</p>
       <Image
         src={image}
@@ -93,7 +100,7 @@ function Product({ id, title, category, description, image, price, rating }) {
           <p className="text-xs text-gray-500">FREE Delivery</p>
         </div>
       )}
-      <button onClick={addItemToCart} className="mt-auto button">Add to Cart</button>
+      <button onClick={handleAddItemToCart} className="mt-auto button">Add to Cart</button>
     </div>
   );
 }
