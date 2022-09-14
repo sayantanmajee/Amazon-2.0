@@ -9,10 +9,17 @@ import { useSelector } from 'react-redux';
 import { selectItems, selectCartTotalQuantity } from '../slices/basketSlice';
 
 
-function Header() {
+function Header( {category}) {
     const { data: session } = useSession()
     const router = useRouter();
     const cartItems = useSelector(selectCartTotalQuantity);
+
+    const handleAllButton = () => {
+
+        return (
+            console.log(category)
+        )
+    }
 
     return (
         <header className="fixed z-30 w-full">
@@ -65,7 +72,7 @@ function Header() {
             </div>
             {/* bottom nav */}
             <div className="flex items-center bg-amazon_blue-light text-white text-sm space-x-3 p-2 pl-6">
-                <p className="link flex items-center justify-center bold">
+                <p onClick={handleAllButton} className="link flex items-center justify-center bold">
                     <RiMenuFill className='h-6 mr-1' />
                     All
                 </p>

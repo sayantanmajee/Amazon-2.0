@@ -8,14 +8,15 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Home({ products }) {
+export default function Home({ products, categories }) {
   return (
     <div className="bg-gray-100">
       <Head>
         <title>Amazon 2.0</title>
       </Head>
       {/* Header */}
-      <Header />
+      <Header
+        category={categories} />
       <div className="max-w-screen-xl mx-auto">
         {/* Banner */}
         <Banner />
@@ -37,11 +38,17 @@ export async function getServerSideProps(context) {
   const API_ENDPOINT = "https://fakestoreapi.com/products";
 
   const products = await fetch(API_ENDPOINT)
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .catch((err) => (console.error(err)))
+
+  const categories = await fetch("https://api.storerestapi.com/products")
+    .then((res) => res.json())
+    .catch((err) => (console.error(err)))
 
   return {
     props: {
-      products
+      products,
+      categories
     },
   };
 

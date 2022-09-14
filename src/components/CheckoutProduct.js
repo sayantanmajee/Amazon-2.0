@@ -1,15 +1,17 @@
 import Image from "next/image";
+import react, { useState, useEffect } from 'react';
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, reduceCartItemQuantity, } from '../slices/basketSlice'
 import { selectCartQuantity } from '../slices/basketSlice'
-import { useEffect } from "react";
 import { toast } from 'react-toastify';
+import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 
 
 function CheckoutProduct({ index, id, title, price, rate, description, category, image, hasPrime }) {
 
     const cartQuantity = useSelector(selectCartQuantity);
+    const [isRemovedCart, setIsRemovedCart] = useState(false); 
     const dispatch = useDispatch()
 
     //inline arrow function for adding item from cart
@@ -43,13 +45,14 @@ function CheckoutProduct({ index, id, title, price, rate, description, category,
         dispatch(removeFromCart({ id }));   
 
         toast.warn(`${title} Removed from cart`)
+        setIsRemovedCart(true);
 
     }
 
 
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className={` transition ease-in  flex flex-col justify-center items-center`}>
 
             <div className="grid grid-cols-5 bg-white">
                 <Image src={image} height={150} width={150} objectFit="contain" />
@@ -63,9 +66,9 @@ function CheckoutProduct({ index, id, title, price, rate, description, category,
 
                     <div className="pt-2 space-y-2 flex flex-col my-3">
                         <div className="select-none flex justify-start items-center">
-                            <span onClick={decreaseItemCount} className={`${cartQuantity[index] === 1 ? "cursor-not-allowed bg-gradient-to-t from-gray-500 to-gray-300" : "cursor-pointer active:bg-slate-400"} border-none px-3 items-center justify-center bg-slate-300 rounded-l-md text-xl font-bold  `}>-</span>
+                            <span onClick={decreaseItemCount} className={`${cartQuantity[index] === 1 ? "cursor-not-allowed bg-gradient-to-t from-gray-500 to-gray-300" : "cursor-pointer active:bg-slate-400"} border-none px-3 items-center justify-center bg-slate-300 rounded-l-md text-xl font-bold  `}><AiOutlineMinus className="my-1 text-blue-800"/></span>
                             <span className="flex items-center justify-center w-14 border-y-2 border-x outline-gray-400 border-gray-400 px-5 font-bold">{cartQuantity[index]}</span>
-                            <span onClick={increaseItemCount} className=" cursor-pointer px-3 items-center border-none justify-center bg-slate-300 rounded-r-md text-xl font-bold active:bg-slate-400">+</span>
+                            <span onClick={increaseItemCount} className=" cursor-pointer px-3 items-center border-none justify-center bg-slate-300 rounded-r-md text-xl font-bold active:bg-slate-400"><AiOutlinePlus className="my-1 text-blue-800"/></span>
                         </div>
                         <span className="text-2xl bold">
                             {"₹" + (Math.floor(price * 10) + ".00")}
@@ -90,7 +93,7 @@ function CheckoutProduct({ index, id, title, price, rate, description, category,
                 <div className="hidden sm:flex flex-col space-y-5 mr-3 my-auto justify-self-end">
 
                     {/* <button onClick={increaseItemCount} className="p-2 text-sm button">Count +</button> */}
-                    <button onClick={removeItemFromCart} className="p-2 text-xs button">Remove from Cart</button>
+                    <button onClick={removeItemFromCart} className="p-2 text-sm font-semibold button">Remove Item</button>
                 </div>
 
 

@@ -103,8 +103,8 @@ function Checkout() {
 
                   </h2>
 
-                  <button className={`button mt-2 p-2 ${!session && 'from-gray-300 to-gray-500 border-gray-200 text-black text-base cursor-not-allowed active:from-gray-400 active:to-gray-500 active:border-gray-400'}`} >
-                    {!session ? 'sign in to checkout' : "Proceed to Checkout"}
+                  <button className={`button mt-2 p-2 items-center ${!session && 'from-gray-300 to-gray-500 border-gray-200 text-black text-base cursor-not-allowed active:from-gray-400 active:to-gray-500 active:border-gray-400'}`} >
+                    {!session ? 'Sign-In to Checkout' : "Proceed to Checkout"}
                   </button>
                 </>
               )}

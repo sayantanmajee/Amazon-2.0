@@ -50,7 +50,7 @@ function Product({ id, title, category, description, image, price, rating }) {
   //   });
 
   return (
-    <div className="flex flex-col sm: relative m-5 bg-white z-20 p-10 rounded-md">
+    <div className="transition ease-out duration-100 hover:scale-105 flex flex-col sm: relative m-5 bg-white z-20 p-10 rounded-md">
       <p className="absolute top-2 right-3 text-sm italic">{category}</p>
       <Image
         src={image}
